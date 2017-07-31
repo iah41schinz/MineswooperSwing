@@ -110,8 +110,36 @@ public class Game extends JFrame implements MouseListener{
 	}
 
 	private void OpenCell(int y, int x) {
-		// TODO Algorithm to Cascade through all Cells connected to eachother and open them if they are no Bombs
-		
+		//Cascade through all neighbor Cells:
+		//First count the bombs around the selected Cell
+		for (int tmpY = y - 1; tmpY < y + 2; tmpY++) {
+xIteration : 	for (int tmpX = x - 1; tmpX < x + 2; tmpX++) {
+				if (tmpX == x && tmpY == y || tmpX < 0 || tmpX > Cells[0].length - 1 || tmpY < 0 || tmpY > Cells.length - 1) {
+					continue xIteration;
+				}
+				else if(Cells[tmpY][tmpX].Bomb == true){
+					Cells[y][x].neighboringBombs++;		
+				}
+				
+			}
+			
+		}
+		//Then, if there are no bombs 
+		//open all surrounding Cells
+		if(Cells[y][x].neighboringBombs == 0) {
+			for (int tmpY = y - 1; tmpY < y + 2; tmpY++) {
+				for (int tmpX = x - 1; tmpX < x + 2; tmpX++) {
+					if (tmpX == x && tmpY == y || tmpX < 0 || tmpX > Cells[0].length - 1 || tmpY < 0 || tmpY > Cells.length - 1) {
+						continue;
+					}
+					else if(Cells[tmpY][tmpX].getIcon() == null){
+						OpenCell(tmpX, tmpY);
+					}
+					
+				}
+				
+			}
+		}
 	}
 
 	@Override
