@@ -10,7 +10,12 @@ public class Game extends JFrame implements MouseListener{
 	Random r = new Random();
 	int XofRandom;
 	int YofRandom;
+	int defusedBombs;
+	int numBombs;
+
+
 	public Game(int x,int y,int numBombs) {
+		this.numBombs = numBombs;
 		JPanel Panel = new JPanel();
 		Cells = new Cell[y][x];
 		//The Cells are generated
@@ -19,9 +24,11 @@ public class Game extends JFrame implements MouseListener{
 			for (int j = 0; j < x - 1; j++) {
 				Cells[i][j]  = new Cell();
 				Cells[i][j].addMouseListener(this);
+				Panel.add(Cells[i][j]);
 			}
 			
 		}
+		this.add(Panel);
 		//Cells are randomly selected as Bombs
 		for (int i = 0; i < numBombs; i++) {
 			XofRandom = r.nextInt(x);
@@ -58,18 +65,52 @@ public class Game extends JFrame implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Cell EventSource;
-		//get the index of JButton that was pressed
+		Cell EventSource = null;
+		int x = 0;
+		int y = 0;
+		//get the index of the JButton that was pressed
 		if (e.getSource() instanceof Cell) {
 			for (int i = 0; i < Cells.length; i++) {
 
 				for (int j = 0 ;j < Cells[i].length; j++) {
 					if(e.getSource() == Cells[i][j]) {
 						EventSource = (Cell)e.getSource();
+						x = j;
+						y = i;
 					}
 				}
 			}	
+			if(SwingUtilities.isRightMouseButton(e)) {
+				if(EventSource.getIcon() == EventSource.flag) {
+					EventSource.setIcon(null);
+					if(EventSource.Bomb == true)
+						defusedBombs--;
+				}
+				else if(EventSource.getIcon() == null) {
+					if(EventSource.Bomb == true)
+						defusedBombs++;
+					EventSource.setIcon(EventSource.flag);
+					if(defusedBombs == numBombs) {
+						//TODO Winningscreen
+					}
+				}
+			}
+			else if(SwingUtilities.isLeftMouseButton(e)) {
+				if(EventSource.Bomb == true) {
+					//TODO Gameoverscreen
+				}
+				else if(EventSource.getIcon() == null) {
+					OpenCell(y,x);
+				}
+
+
+			}
 		}
+		
+	}
+
+	private void OpenCell(int y, int x) {
+		// TODO Algorithm to Cascade through all Cells connected to eachother and open them if they are no Bombs
 		
 	}
 
