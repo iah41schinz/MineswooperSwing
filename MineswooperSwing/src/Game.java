@@ -17,11 +17,13 @@ public class Game extends JFrame implements MouseListener{
 	public Game(int x,int y,int numBombs) {
 		this.numBombs = numBombs;
 		JPanel Panel = new JPanel();
+		this.setSize(400,400);
+		Panel.setSize(400,400);
 		Cells = new Cell[y][x];
 		//The Cells are generated
 
-		for (int i = 0; i < y - 1; i++) {
-			for (int j = 0; j < x - 1; j++) {
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
 				Cells[i][j]  = new Cell();
 				Cells[i][j].addMouseListener(this);
 				Panel.add(Cells[i][j]);
@@ -42,7 +44,7 @@ public class Game extends JFrame implements MouseListener{
 				Cells[YofRandom][XofRandom].Bomb = true;
 			}
 		}
-		
+		this.setVisible(true);
 	}
 
 	@Override
