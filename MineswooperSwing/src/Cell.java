@@ -21,7 +21,6 @@ public class Cell extends JButton{
 		num6 = new ImageIcon(this.getClass().getResource("num6.png"));
 		num7 = new ImageIcon(this.getClass().getResource("num7.png"));
 		num8 = new ImageIcon(this.getClass().getResource("num8.png"));
-
 		this.setIcon(hidden);
 	}
 }
