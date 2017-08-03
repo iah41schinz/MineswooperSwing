@@ -94,12 +94,13 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 					}
 					Cells[y][x].Flagged = false;
 				}
-				else if(Cells[y][x].Hidden == true)
+				else if(Cells[y][x].Hidden == true) {
 					if(Cells[y][x].Bomb == true) {
 						defusedBombs++;
 					}
 					Cells[y][x].Flagged = true;
-				Cells[y][x].setIcon(Cells[y][x].getStateIcon());
+					Cells[y][x].setIcon(Cells[y][x].getStateIcon());	
+				}
 				if(defusedBombs == numBombs) {
 					//TODO WINSCREEN
 				}
