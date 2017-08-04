@@ -1,6 +1,5 @@
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 
@@ -23,6 +22,7 @@ public class Game extends JFrame implements MouseListener{
 
 
 	public Game(int x,int y,int numBombs) {
+		super("Mineswooper");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.numBombs = numBombs;
 		GameState = new JLabel();
@@ -85,7 +85,6 @@ public class Game extends JFrame implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Cell EventSource = null;
 		int x = 0;
 		int y = 0;
 		//get the index of the JButton that was pressed
@@ -94,7 +93,6 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 
 				for (int j = 0 ;j < Cells[i].length; j++) {
 					if(e.getSource() == Cells[i][j]) {
-						EventSource = (Cell)e.getSource();
 						x = j;
 						y = i;
 						break Iteration;
@@ -199,6 +197,8 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 
 				for (int j = 0 ;j < Cells[i].length; j++) {
 						Cells[i][j].Hidden = false;
+						//TODO Optional: show extra tileset on Flagged bombs
+						Cells[i][j].Flagged = false;
 						Cells[i][j].neighboringBombs = 0;
 						for (int tmpY = i - 1; tmpY < i + 2; tmpY++) {
 			xIteration : 	for (int tmpX = j - 1; tmpX < j + 2; tmpX++) {
