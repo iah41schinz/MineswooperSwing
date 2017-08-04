@@ -31,7 +31,7 @@ public class Game extends JFrame implements MouseListener{
 		COOL = new ImageIcon(this.getClass().getResource("COOL.png"));
 		GameState.setIcon(OK);
 		JPanel GamePanel = new JPanel();
-		this.setResizable(true);
+		this.setResizable(false);
 		GamePanel.setLayout(new GridLayout(y,x));
 		Cells = new Cell[y][x];
 		//The Cells are generated
