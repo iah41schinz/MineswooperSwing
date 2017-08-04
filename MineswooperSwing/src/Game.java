@@ -99,10 +99,11 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 						defusedBombs++;
 					}
 					Cells[y][x].Flagged = true;
-					Cells[y][x].setIcon(Cells[y][x].getStateIcon());	
 				}
+				Cells[y][x].setIcon(Cells[y][x].getStateIcon());	
 				if(defusedBombs == numBombs) {
 					//TODO WINSCREEN
+					unveilCells();
 				}
 			}
 			else if(SwingUtilities.isLeftMouseButton(e)) {
@@ -111,7 +112,8 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 					if(Cells[y][x].Bomb == true) {
 						Cells[y][x].Hidden = false;
 						Cells[y][x].setIcon(Cells[y][x].getStateIcon());
-						//TODO GAMEOVERSCREEN
+						//TODO GAMEOVERSCREEN#
+						unveilCells();
 					}
 					//Digging an open Cell is not possible
 					if(Cells[y][x].Hidden == true) {
@@ -174,6 +176,18 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 
 				for (int j = 0 ;j < Cells[i].length; j++) {
 						Cells[i][j].Hidden = false;
+						for (int tmpY = i - 1; tmpY < i + 2; tmpY++) {
+			xIteration : 	for (int tmpX = j - 1; tmpX < j + 2; tmpX++) {
+								if (tmpX == j && tmpY == i || tmpX < 0 || tmpX > Cells[0].length - 1 || tmpY < 0 || tmpY > Cells.length - 1) {
+									continue xIteration;
+								}
+								else if(Cells[tmpY][tmpX].Bomb == true){
+									Cells[i][j].neighboringBombs++;
+								}
+							
+							}
+										
+						}
 						Cells[i][j].setIcon(Cells[i][j].getStateIcon());
 
 				}
