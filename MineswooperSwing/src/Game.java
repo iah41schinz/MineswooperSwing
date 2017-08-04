@@ -1,4 +1,5 @@
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
@@ -29,8 +30,9 @@ public class Game extends JFrame implements MouseListener{
 		COOL = new ImageIcon(this.getClass().getResource("COOL.png"));
 		GameState.setIcon(OK);
 		JPanel GamePanel = new JPanel();
+		GamePanel.setSize(400,400);
 		this.setSize(400, 400);
-		this.setResizable(true);
+		this.setResizable(false);
 		GamePanel.setLayout(new GridLayout(y,x));
 		Cells = new Cell[y][x];
 		//The Cells are generated
@@ -44,8 +46,8 @@ public class Game extends JFrame implements MouseListener{
 			
 		}
 		//TODO GameState Label does not display properly
-		this.add(GameState);
-		this.add(GamePanel);
+		this.add(GameState, BorderLayout.NORTH);
+		this.add(GamePanel, BorderLayout.CENTER);
 		//Cells are randomly selected as Bombs
 		for (int i = 0; i < numBombs; i++) {
 			XofRandom = r.nextInt(x);
