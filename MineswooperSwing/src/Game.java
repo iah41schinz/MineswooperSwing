@@ -1,4 +1,8 @@
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.ImageIcon;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
@@ -13,15 +17,21 @@ public class Game extends JFrame implements MouseListener{
 	int YofRandom;
 	int defusedBombs;
 	int numBombs;
+	ImageIcon OK,DEAD,COOL;
 
 
 	public Game(int x,int y,int numBombs) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.numBombs = numBombs;
-		JPanel Panel = new JPanel();
-		this.setSize(400,400);
-		this.setResizable(false);
-		Panel.setLayout(new GridLayout(x,y));
+		JLabel GameState = new JLabel();
+		OK = new ImageIcon(this.getClass().getResource("OK.png"));
+		DEAD = new ImageIcon(this.getClass().getResource("DEAD.png"));
+		COOL = new ImageIcon(this.getClass().getResource("COOL.png"));
+		GameState.setIcon(OK);
+		JPanel GamePanel = new JPanel();
+		this.setSize(400, 400);
+		this.setResizable(true);
+		GamePanel.setLayout(new GridLayout(y,x));
 		Cells = new Cell[y][x];
 		//The Cells are generated
 
@@ -29,11 +39,13 @@ public class Game extends JFrame implements MouseListener{
 			for (int j = 0; j < x; j++) {
 				Cells[i][j]  = new Cell();
 				Cells[i][j].addMouseListener(this);
-				Panel.add(Cells[i][j]);
+				GamePanel.add(Cells[i][j]);
 			}
 			
 		}
-		this.add(Panel);
+		//TODO GameState Label does not display properly
+		this.add(GameState);
+		this.add(GamePanel);
 		//Cells are randomly selected as Bombs
 		for (int i = 0; i < numBombs; i++) {
 			XofRandom = r.nextInt(x);
