@@ -31,9 +31,7 @@ public class Game extends JFrame implements MouseListener{
 		COOL = new ImageIcon(this.getClass().getResource("COOL.png"));
 		GameState.setIcon(OK);
 		JPanel GamePanel = new JPanel();
-		GamePanel.setSize(400,400);
-		this.setSize(400, 400);
-		this.setResizable(false);
+		this.setResizable(true);
 		GamePanel.setLayout(new GridLayout(y,x));
 		Cells = new Cell[y][x];
 		//The Cells are generated
@@ -46,7 +44,9 @@ public class Game extends JFrame implements MouseListener{
 			}
 			
 		}
-		//TODO GameState Label does not display properly
+		//TODO Optional move Gamestate to center
+		//Set JFrame size to match the button count
+		this.setSize(Cells[0].length * 20,Cells.length * 20 + 20);
 		this.add(GameState, BorderLayout.NORTH);
 		this.add(GamePanel, BorderLayout.CENTER);
 		//Cells are randomly selected as Bombs
