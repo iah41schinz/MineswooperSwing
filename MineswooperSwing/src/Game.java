@@ -19,12 +19,13 @@ public class Game extends JFrame implements MouseListener{
 	int defusedBombs;
 	int numBombs;
 	ImageIcon OK,DEAD,COOL;
+	JLabel GameState;
 
 
 	public Game(int x,int y,int numBombs) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.numBombs = numBombs;
-		JLabel GameState = new JLabel();
+		GameState = new JLabel();
 		OK = new ImageIcon(this.getClass().getResource("OK.png"));
 		DEAD = new ImageIcon(this.getClass().getResource("DEAD.png"));
 		COOL = new ImageIcon(this.getClass().getResource("COOL.png"));
@@ -118,6 +119,7 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 				if(defusedBombs == numBombs) {
 					//TODO WINSCREEN
 					unveilCells();
+					GameState.setIcon(COOL);
 				}
 			}
 			else if(SwingUtilities.isLeftMouseButton(e)) {
@@ -128,6 +130,13 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 						Cells[y][x].setIcon(Cells[y][x].getStateIcon());
 						//TODO GAMEOVERSCREEN#
 						unveilCells();
+						GameState.setIcon(DEAD);
+						GameState.setIcon(OK);
+						GameState.setIcon(DEAD);
+						GameState.setIcon(OK);
+						GameState.setIcon(DEAD);
+						GameState.setIcon(OK);
+						GameState.setIcon(DEAD);
 					}
 					//Digging an open Cell is not possible
 					if(Cells[y][x].Hidden == true) {
@@ -190,6 +199,7 @@ Iteration:	for (int i = 0; i < Cells.length; i++) {
 
 				for (int j = 0 ;j < Cells[i].length; j++) {
 						Cells[i][j].Hidden = false;
+						Cells[i][j].neighboringBombs = 0;
 						for (int tmpY = i - 1; tmpY < i + 2; tmpY++) {
 			xIteration : 	for (int tmpX = j - 1; tmpX < j + 2; tmpX++) {
 								if (tmpX == j && tmpY == i || tmpX < 0 || tmpX > Cells[0].length - 1 || tmpY < 0 || tmpY > Cells.length - 1) {
