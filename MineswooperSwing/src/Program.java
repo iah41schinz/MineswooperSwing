@@ -1,13 +1,15 @@
 import java.util.Scanner;
 
 public class Program {
+	static final int maxGameSize = 1000;
+	static final int minGameSize = 25;
 	static Scanner scan = new Scanner(System.in);
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int x,y,numBombs;
-		int numCells = getIntfromPanelInput(0,100,"Number of Cells","Only 1 - 100 allowed");
+		int numCells = getIntfromPanelInput(minGameSize,maxGameSize,"Number of Cells","Only " + minGameSize + " - " + maxGameSize + " allowed");
 		x = y = (int) Math.sqrt(numCells);
-		numBombs = getIntfromPanelInput(0,x*y,"Number of bombs","There can not be more bombs than Cells");
+		numBombs = getIntfromPanelInput(1,x*y,"Number of bombs","There can not be more bombs than Cells");
 		new Game(x,y,numBombs);
 	}
 
