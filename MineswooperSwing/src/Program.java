@@ -7,7 +7,7 @@ public class Program {
 		int x,y,numBombs;
 		int numCells = getIntfromPanelInput(0,100,"Number of Cells","Only 1 - 100 allowed");
 		x = y = (int) Math.sqrt(numCells);
-		numBombs = getIntfromPanelInput(0,100,"Number of bombs","Only 1 - 100 allowed");
+		numBombs = getIntfromPanelInput(0,x*y,"Number of bombs","There can not be more bombs than Cells");
 		new Game(x,y,numBombs);
 	}
 
